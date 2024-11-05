@@ -125,3 +125,18 @@ button {
 button:hover {
     background-color: #003399;
 } 
+
+/* Cambiar el color de fondo de las flechas de navegación */
+.carousel-control-prev, .carousel-control-next {
+    background-color: rgba(0, 0, 0, 0); /* Fondo por defecto (semi-transparente) */
+    
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+/* Cuando el mouse pasa sobre las flechas */
+
+/* Cambiar el color de los íconos (las flechas) */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgb(0, 0, 1); /* Color de las flechas (por defecto en blanco) */
+}
+
