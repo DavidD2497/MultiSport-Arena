@@ -58,7 +58,7 @@ def hacer_reserva():
         conn.close()
 
         flash('Reserva realizada con éxito.', 'success')
-        return redirect(url_for('reserva.calendario'))
+        return redirect(url_for('reserva.hacer_reserva'))
 
     # Mostrar las canchas disponibles al hacer una nueva reserva
     conn = crear_conexion(DATABASE)

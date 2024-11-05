@@ -16,7 +16,7 @@ app.register_blueprint(reserva_bp, url_prefix="/reserva")
 def index():
 
     if 'user_id' in session:
-        return render_template('index.html', usuario=session['user_id'])  # pasa la información de usuario a la plantilla
+        return render_template('index.html', usuario=session['user_id'])  
     else:
         mensaje ="Bienvenido a MultiSport Arena. <a href='/auth/login'>Iniciar sesión</a> o <a href='/auth/registro'>Registrarse</a>"
         return render_template('index.html', mensaje=mensaje)
