@@ -13,10 +13,8 @@ app.register_blueprint(auth_bp, url_prefix="/auth")
 
 @app.route('/')
 def index():
-    if 'user_id' in session:
-        return f"Bienvenido, usuario {session['user_id']}! <a href='/auth/logout'>Cerrar sesión</a>"
-    else:
-        return "Bienvenido a MultiSport Arena <a href='/auth/login'>Iniciar sesión</a> o <a href='/auth/registro'>Registrarse</a>"
+    user_id = session.get('user_id')  # Obtener el ID del usuario si está en la sesión
+    return render_template("index.html", user_id=user_id)
 
 if __name__ == "__main__":
     conn = crear_conexion("reserva_canchas.db")
@@ -31,9 +29,3 @@ if __name__ == "__main__":
         insertar_reserva(conn, 1, 1, "2023-04-15", 16, "Por Confirmar")
         conn.close()
     app.run(debug=True)
-
-
-
-
-
-
