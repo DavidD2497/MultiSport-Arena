@@ -14,9 +14,11 @@ app.register_blueprint(auth_bp, url_prefix="/auth")
 @app.route('/')
 def index():
     if 'user_id' in session:
-        return f"Bienvenido, usuario {session['user_id']}! <a href='/auth/logout'>Cerrar sesión</a>"
+        return render_template('index.html', usuario=session['user_id'])  # pasa la información de usuario a la plantilla
     else:
-        return "Bienvenido a MultiSport Arena <a href='/auth/login'>Iniciar sesión</a> o <a href='/auth/registro'>Registrarse</a>"
+        mensaje ="Bienvenido a MultiSport Arena. <a href='/auth/login'>Iniciar sesión</a> o <a href='/auth/registro'>Registrarse</a>"
+        return render_template('index.html', mensaje=mensaje)
+
 
 if __name__ == "__main__":
     conn = crear_conexion("reserva_canchas.db")
