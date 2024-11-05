@@ -1,15 +1,22 @@
-from flask import Flask
+from flask import Flask, session, render_template
 from modelo.conexion import crear_conexion
 from modelo.usuario import crear_tabla_usuario, insertar_usuario
 from modelo.administrador import crear_tabla_administrador, insertar_administrador
 from modelo.cancha import crear_tabla_cancha, insertar_cancha
 from modelo.reserva import crear_tabla_reserva, insertar_reserva
+from controlador.autenticador import auth_bp
 
 app = Flask(__name__)
+app.secret_key = "clave_secreta_segura"
+
+app.register_blueprint(auth_bp, url_prefix="/auth")
 
 @app.route('/')
 def index():
-    return "Bienvenido a PicResizer"
+    if 'user_id' in session:
+        return f"Bienvenido, usuario {session['user_id']}! <a href='/auth/logout'>Cerrar sesión</a>"
+    else:
+        return "Bienvenido a MultiSport Arena <a href='/auth/login'>Iniciar sesión</a> o <a href='/auth/registro'>Registrarse</a>"
 
 if __name__ == "__main__":
     conn = crear_conexion("reserva_canchas.db")
@@ -24,6 +31,7 @@ if __name__ == "__main__":
         insertar_reserva(conn, 1, 1, "2023-04-15", 16, "Por Confirmar")
         conn.close()
     app.run(debug=True)
+
 
 
 
