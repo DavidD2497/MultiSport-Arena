@@ -1,0 +1,37 @@
+{% include 'header.html'%}
+
+<main>
+    <h1>Hacer una Reserva</h1>
+
+    <!-- Mostrar mensajes de error o éxito -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('reserva.hacer_reserva') }}">
+        <label for="cancha_id">Cancha:</label>
+        <select name="cancha_id" id="cancha_id" required>
+            {% for cancha in canchas %}
+                <option value="{{ cancha[0] }}">{{ cancha[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" id="fecha" required>
+
+        <label for="hora">Hora:</label>
+        <input type="time" name="hora" id="hora" required>
+
+        <button type="submit">Reservar</button>
+    </form>
+
+    <a href="{{ url_for('reserva.calendario') }}">Volver al calendario</a>
+</main>
+
+{% include 'footer.html' %}

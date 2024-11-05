@@ -22,7 +22,8 @@
                     <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Reserva</a>
+                    <a class="nav-link" href="{{ url_for('reserva.hacer_reserva') }}">Reserva</a>
+
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Sobre Nosotros</a>
@@ -31,7 +32,7 @@
                     <a class="nav-link" href="#">Contacto</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/auth/login">
                         <img src="./img/usuario.png" alt="usuario" width="50" height="50">
                     </a>
                   </li>

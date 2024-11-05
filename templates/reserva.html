@@ -1,0 +1,38 @@
+
+{% include 'header.html'%}
+
+<main>
+    <h1>Calendario de Reservas</h1>
+    <h2>Canchas disponibles:</h2>
+    <ul>
+        {% for cancha in canchas %}
+            <li>{{ cancha[1] }} ({{ cancha[2] }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Reservas realizadas:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Cancha</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva[1] }}</td>
+                    <td>{{ reserva[2] }}</td>
+                    <td>{{ reserva[3] }}</td>
+                    <td>{{ reserva[4] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('reserva.hacer_reserva') }}">Hacer una nueva reserva</a>
+</main>
+
+{% include 'footer.html' %}
+    

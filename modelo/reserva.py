@@ -24,7 +24,21 @@ def crear_tabla_reserva(conn):
 
 def insertar_reserva(conn, id_usuario, id_cancha, fecha, hora, estado='Por Confirmar'):
     try:
+        # Verificar si ya existe una reserva para esa cancha, fecha y hora
         cursor = conn.cursor()
+        query_check = """
+            SELECT COUNT(*) 
+            FROM Reservas 
+            WHERE id_cancha = ? AND fecha = ? AND hora = ?
+        """
+        cursor.execute(query_check, (id_cancha, fecha, hora))
+        count = cursor.fetchone()[0]
+
+        if count > 0:
+            print("Ya existe una reserva para esa cancha, fecha y hora.")
+            return  # No insertar la reserva
+
+        # Si no existe, insertar la nueva reserva
         sql_insertar_reserva = """
         INSERT INTO Reservas (id_usuario, id_cancha, fecha, hora, estado)
         VALUES (?, ?, ?, ?, ?)
@@ -34,4 +48,17 @@ def insertar_reserva(conn, id_usuario, id_cancha, fecha, hora, estado='Por Confi
         print("Reserva insertada exitosamente.")
     except Error as e:
         print(f"Error al insertar reserva: {e}")
+
+def obtener_reservas(conn):
+    query = """
+        SELECT reservas.id_reserva, canchas.nombre AS cancha_nombre, reservas.fecha, 
+               reservas.hora, reservas.estado
+        FROM reservas
+        JOIN canchas ON reservas.id_cancha = canchas.id_cancha
+    """
+    cursor = conn.cursor()
+    cursor.execute(query)
+    reservas = cursor.fetchall()
+    print("Reservas obtenidas:", reservas)  # Imprimir los resultados para depuración
+    return reservas
 
