@@ -12,10 +12,10 @@ app.register_blueprint(auth_bp, url_prefix="/auth")
 
 @app.route('/')
 def index():
-<<<<<<< HEAD
+
     user_id = session.get('user_id')  # Obtener el ID del usuario si está en la sesión
     return render_template("index.html", user_id=user_id)
-=======
+
     return render_template('index.html')
 
 @app.route('/contacto')
@@ -34,7 +34,6 @@ def admin_dashboard():
 def reservar(tipo_cancha):
     return f"Reserva para cancha de {tipo_cancha}."
 
->>>>>>> 7dbb827ecf10468f04b698354b4aaa069d6c5847
 
 if __name__ == "__main__":
     conn = crear_conexion("reserva_canchas.db")
