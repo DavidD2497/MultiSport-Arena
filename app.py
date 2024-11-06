@@ -4,11 +4,13 @@ from modelo.usuario import crear_tabla_usuario, insertar_usuario, obtener_todos_
 from modelo.cancha import crear_tabla_cancha, insertar_cancha, obtener_todas_las_canchas, actualizar_cancha, eliminar_cancha, obtener_cancha_por_id
 from modelo.reserva import crear_tabla_reserva, insertar_reserva, obtener_todas_las_reservas, actualizar_estado_reserva, eliminar_reserva
 from controlador.autenticador import auth_bp
+from controlador.reservacion import reserva_bp
 
 app = Flask(__name__)
 app.secret_key = "clave_secreta_segura"
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(reserva_bp, url_prefix="/reserva")
 
 @app.route('/')
 def index():
@@ -30,10 +32,6 @@ def sobrenosotros():
 def admin_dashboard():
     return render_template('admin_dashboard.html')
 
-@app.route('/reservar/<tipo_cancha>')
-def reservar(tipo_cancha):
-    return f"Reserva para cancha de {tipo_cancha}."
-
 @app.route('/admin/usuarios')
 def admin_usuarios():
     conn = crear_conexion("reserva_canchas.db")
@@ -44,7 +42,7 @@ def admin_usuarios():
 @app.route('/admin/usuarios/hacer_admin/<int:id>')
 def hacer_admin(id):
     conn = crear_conexion("reserva_canchas.db")
-    actualizar_nivel(conn, id, 'admin')
+    actualizar_nivel(conn, id, 'administrador')
     conn.close()
     return redirect(url_for('admin_usuarios'))
 

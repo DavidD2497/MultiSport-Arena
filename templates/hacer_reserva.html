@@ -1,0 +1,54 @@
+{% include 'header.html'%}
+
+<main>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+
+        <main class="bg-light">
+            <div class="container mt-5">
+                <h1 class="text-center">Reserva tu Cancha de {{ tipo_cancha.capitalize() }}</h1>
+                <form method="POST" action="{{ url_for('reserva.hacer_reserva', tipo_cancha=tipo_cancha) }}">
+                    <div class="form-group">
+                        <label for="cancha_id">Selecciona una cancha</label>
+                        <select name="cancha_id" id="cancha_id" class="form-select" required>
+                            <option value="" disabled selected>Elige una cancha</option>
+                            {% for cancha in canchas %}
+                                <option value="{{ cancha[0] }}">{{ cancha[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+        
+                    <div class="form-group mt-3">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
+                    </div>
+        
+                    <div class="form-group mt-3">
+                        <label for="hora">Selecciona una hora:</label>
+                        <select name="hora" id="hora" required>
+                            {% for hora in horas_disponibles %}
+                                <option value="{{ hora }}">{{ hora }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+        
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-success w-100">Hacer Reserva</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        
+        {% include 'footer.html' %}
+        
+        

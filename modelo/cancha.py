@@ -62,5 +62,15 @@ def eliminar_cancha(conn, id_cancha):
         print(f"Error al eliminar cancha: {e}")
 
 
+def obtener_canchas(conn, tipo_cancha):
+    query = """
+        SELECT id_cancha, nombre FROM Canchas WHERE tipo = ?
+    """
+    cursor = conn.cursor()
+    cursor.execute(query, (tipo_cancha,))
+    canchas = cursor.fetchall()
+    return canchas
+
+
 
 
