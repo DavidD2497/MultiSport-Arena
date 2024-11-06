@@ -2,16 +2,13 @@ from flask import Flask, session, render_template, redirect, url_for, request
 from modelo.conexion import crear_conexion
 from modelo.usuario import crear_tabla_usuario, insertar_usuario, obtener_todos_los_usuarios, actualizar_nivel
 from modelo.cancha import crear_tabla_cancha, insertar_cancha, obtener_todas_las_canchas, actualizar_cancha, eliminar_cancha, obtener_cancha_por_id
-from modelo.reserva import crear_tabla_reserva, insertar_reserva
+from modelo.reserva import crear_tabla_reserva, insertar_reserva, obtener_todas_las_reservas, actualizar_estado_reserva, eliminar_reserva
 from controlador.autenticador import auth_bp
 
 app = Flask(__name__)
 app.secret_key = "clave_secreta_segura"
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
-
-def es_admin():
-    return session.get('rol') == 'admin'
 
 @app.route('/')
 def index():
@@ -87,9 +84,25 @@ def eliminar_cancha_route(id):
 
 @app.route('/admin/reservas')
 def admin_reservas():
-    if not es_admin():
-        return render_template('index.html')
-    return render_template('admin_reservas.html')
+    conn = crear_conexion("reserva_canchas.db")
+    reservas = obtener_todas_las_reservas(conn)
+    conn.close()
+    return render_template('admin_reservas.html', reservas=reservas)
+
+@app.route('/admin/reservas/actualizar_estado/<int:id>', methods=['POST'])
+def actualizar_estado_reserva_route(id):
+    nuevo_estado = request.form['estado']
+    conn = crear_conexion("reserva_canchas.db")
+    actualizar_estado_reserva(conn, id, nuevo_estado)
+    conn.close()
+    return redirect(url_for('admin_reservas'))
+
+@app.route('/admin/reservas/eliminar/<int:id>', methods=['GET'])
+def eliminar_reserva_route(id):
+    conn = crear_conexion("reserva_canchas.db")
+    eliminar_reserva(conn, id)
+    conn.close()
+    return redirect(url_for('admin_reservas'))
 
 if __name__ == "__main__":
     conn = crear_conexion("reserva_canchas.db")
@@ -101,6 +114,7 @@ if __name__ == "__main__":
         insertar_usuario(conn, "Admin", "admin@example.com", "admin123", "administrador")
         insertar_cancha(conn, "padel", "Cancha Padel 1")
         insertar_reserva(conn, 1, 1, "2023-04-15", 16, "Por Confirmar")
+        insertar_reserva(conn, 1, 1, "2023-04-15", 18, "Por Confirmar")
         conn.close()
     app.run(debug=True)
 

@@ -35,3 +35,32 @@ def insertar_reserva(conn, id_usuario, id_cancha, fecha, hora, estado='Por Confi
     except Error as e:
         print(f"Error al insertar reserva: {e}")
 
+def obtener_todas_las_reservas(conn):
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT r.id_reserva, u.nombre AS usuario, c.nombre AS cancha, r.fecha, r.hora, r.estado
+        FROM Reservas r
+        JOIN Usuarios u ON r.id_usuario = u.id_usuario
+        JOIN Canchas c ON r.id_cancha = c.id_cancha
+    """)
+    return cursor.fetchall()
+
+def obtener_reserva_por_id(conn, id_reserva):
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT * FROM Reservas WHERE id_reserva = ?
+    """, (id_reserva,))
+    return cursor.fetchone()
+
+def actualizar_estado_reserva(conn, id_reserva, nuevo_estado):
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE Reservas SET estado = ? WHERE id_reserva = ?
+    """, (nuevo_estado, id_reserva))
+    conn.commit()
+
+def eliminar_reserva(conn, id_reserva):
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Reservas WHERE id_reserva = ?", (id_reserva,))
+    conn.commit()
+

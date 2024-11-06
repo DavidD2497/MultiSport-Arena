@@ -43,6 +43,7 @@ def login():
             usuario = obtener_usuario_por_email(conn, email)
             session['user_id'] = usuario[0]
             rol = usuario[4]
+            session['user_role'] = rol
 
             flash('Inicio de sesión exitoso.')
             conn.close()
@@ -62,5 +63,6 @@ def login():
 @auth_bp.route('/logout')
 def logout():
     session.pop('user_id', None)
+    session.pop('user_role', None)
     flash('Cerraste sesión exitosamente.')
     return redirect(url_for('index'))

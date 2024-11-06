@@ -8,6 +8,7 @@
 }
 .nav-link:hover {
     color: #FFD700;
+    transform: scale(1.1);
 }
 .navbar-brand img {
     filter: brightness(0) invert(1);
