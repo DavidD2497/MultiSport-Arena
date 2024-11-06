@@ -59,6 +59,6 @@ def obtener_reservas(conn):
     cursor = conn.cursor()
     cursor.execute(query)
     reservas = cursor.fetchall()
-    print("Reservas obtenidas:", reservas)  # Imprimir los resultados para depuración
+    print("Reservas obtenidas:", reservas)  
     return reservas
 
