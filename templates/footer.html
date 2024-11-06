@@ -1,15 +1,31 @@
-<footer class="footer">
-    <div class="footer-icons">
-        <a href="https://www.instagram.com/" target="_blank" class="icon">
-            <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://www.facebook.com/" target="_blank" class="icon">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://www.twitter.com/" target="_blank" class="icon">
-            <i class="fab fa-twitter"></i>
-        </a>
+<footer class="footer bg-dark text-light py-2.5">
+
+    <div class="row text-center mb-4">
+        <div class="col-md-12">
+            <h5 class="mb-3">Síguenos en nuestras redes sociales</h5>
+            <div class="footer-icons">
+
+                <a href="https://www.instagram.com" target="_blank" class="mx-3">
+                    <img src="{{ url_for('static', filename='img/ig.png') }}" alt="Instagram" class="social-icon">
+                </a>
+                
+                <a href="https://www.twitter.com" target="_blank" class="mx-3">
+                    <img src="{{ url_for('static', filename='img/facebook.svg') }}" alt="Twitter" class="social-icon">
+                </a>
+            </div>
+        </div>
     </div>
-    <p class="footer-text">MultiSport derechos reservados @2024</p>
+
+
+    <div class="row text-center mt-4">
+        <div class="col-md-12">
+            <p class="footer-text m-0">© 2024 MultiSport - Todos los derechos reservados</p>
+            <p class="m-0">
+                <a href="#" class="text-light">Términos y Condiciones</a> | 
+                <a href="#" class="text-light">Política de Privacidad</a>
+            </p>
+        </div>
+    </div>
 </footer>
+
 

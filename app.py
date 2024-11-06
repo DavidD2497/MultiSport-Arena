@@ -14,6 +14,18 @@ app.register_blueprint(auth_bp, url_prefix="/auth")
 def index():
     return render_template('index.html')
 
+@app.route('/contacto')
+def contacto():
+    return render_template('contacto.html')
+
+@app.route('/comoalquilar')
+def comoalquilar():
+    return render_template('comoalquilar.html')
+
+@app.route('/sobrenosotros')
+def sobrenosotros():
+    return render_template('sobrenosotros.html')
+
 @app.route('/admin/dashboard')
 def admin_dashboard():
     return render_template('admin_dashboard.html')
