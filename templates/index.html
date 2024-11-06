@@ -22,7 +22,7 @@
     <div class="container d-flex align-items-center">
         <div class="row w-100">
             <div class="col-md-4 d-none d-md-block">
-                <img src="{{ url_for('static', filename='img/futbol_izquierdo.jpg') }}" alt="Imagen Izquierda" class="img-fluid" style="max-height: 80vh; width: auto;">
+                <img src="{{ url_for('static', filename='img/futbol_izquierdo.png') }}" alt="Imagen Izquierda" class="img-fluid" style="max-height: 80vh; width: auto;">
             </div>
 
             <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
@@ -30,7 +30,7 @@
                 
                 <div class="m-5">
                     <select id="tipoCancha" class="form-select" onchange="habilitarBotonReservar()">
-                        <option value="" disabled selected>Selecciona un tipo de cancha</option>
+                        <option value="" disabled selected>Selecciona el deporte</option>
                         <option value="futbol">Fútbol</option>
                         <option value="tenis">Tenis</option>
                         <option value="padel">Pádel</option>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="col-md-4 d-none d-md-block">
-                <img src="{{ url_for('static', filename='img/tenis_derecho.jpg') }}" alt="Imagen Derecha" class="img-fluid" style="max-height: 80vh; width: auto;">
+                <img src="{{ url_for('static', filename='img/tenis_derecho.png') }}" alt="Imagen Derecha" class="img-fluid" style="max-height: 80vh; width: auto;">
             </div>
         </div>
     </div>
@@ -53,14 +53,13 @@
     function habilitarBotonReservar() {
         const select = document.getElementById('tipoCancha');
         const btnReservar = document.getElementById('btnReservar');
-        btnReservar.disabled = select.value === ""; // Habilita el botón si se selecciona un tipo de cancha
+        btnReservar.disabled = select.value === "";
     }
 
     function redirigir() {
         const select = document.getElementById('tipoCancha');
         const tipoCancha = select.value;
-
-        // Redirige a la ruta de reserva según el tipo de cancha seleccionado
+        
         window.location.href = `/reservar/${tipoCancha}`;
     }
 </script>

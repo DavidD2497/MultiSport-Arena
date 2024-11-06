@@ -8,6 +8,7 @@
 }
 .nav-link:hover {
     color: #FFD700;
+    transform: scale(1.1);
 }
 .navbar-brand img {
     filter: brightness(0) invert(1);
@@ -54,10 +55,10 @@ main {
 
 .contenedor {
     display: flex;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: flex-start; /* Alinea el contenido al principio verticalmente */
+    justify-content: center;
+    align-items: flex-start;
     max-width: 1100px;
-    margin: auto; /* Centra horizontalmente en la página */
+    margin: auto;
     padding: 20px;
 }
 .titulo-contacto{
@@ -122,41 +123,35 @@ button {
     cursor: pointer;
 }
 
-
-/* Cambiar el color de fondo de las flechas de navegación */
 .carousel-control-prev, .carousel-control-next {
-    background-color: rgba(0, 0, 0, 0); /* Fondo por defecto (semi-transparente) */
+    background-color: rgba(0, 0, 0, 0);
     
-    transition: background-color 0.3s ease; /* Transición suave */
+    transition: background-color 0.3s ease;
 }
 
-/* Cuando el mouse pasa sobre las flechas */
-
-/* Cambiar el color de los íconos (las flechas) */
 .carousel-control-prev-icon, .carousel-control-next-icon {
-    background-color: rgb(0, 0, 1); /* Color de las flechas (por defecto en blanco) */
+    background-color: rgb(0, 0, 1);
 }
 
 #carouselSobreNosotros .carousel-item img {
-    height: 500px; /* Ajusta el valor según el tamaño deseado */
-    object-fit: cover; /* Esto asegura que la imagen se ajuste bien al tamaño reducido */
+    height: 500px;
+    object-fit: cover;
 }
 
-/* Opcional: para reducir el tamaño de los íconos */
 .btn-privado .carousel-control-prev-icon,
 .btn-privado .carousel-control-next-icon {
-    width: 30px; /* Ajusta el tamaño según prefieras */
+    width: 30px;
     height: 30px;
 }
 
 
 .carousel-caption {
-    background-color: rgba(14, 13, 14, 0.5); /* Fondo claro semitransparente */
-    padding: 4px 8px; /* Compacto */
-    border-radius: 6px; /* Esquinas redondeadas */
-    max-width: 50%; /* Ancho máximo */
-    margin: 0 auto; /* Centro */
-    color: rgb(255, 255, 255) !important; /* Fuerza el color negro */
+    background-color: rgba(14, 13, 14, 0.5);
+    padding: 4px 8px;
+    border-radius: 6px;
+    max-width: 50%;
+    margin: 0 auto;
+    color: rgb(255, 255, 255) !important;
     font-size: 20px;
 }
 
@@ -167,7 +162,7 @@ button {
 
 .contenido-extra {
     margin-top: 2rem;
-    margin-bottom: 30px; /* Agregar margen inferior */
+    margin-bottom: 30px;
     text-align: left;
 }
 
@@ -183,15 +178,32 @@ button {
     line-height: 1.6;
 }
 
-/* Asegurar que la imagen sea más grande */
 .img-grande {
-    width: 200%; /* Hace que la imagen ocupe todo el ancho de su contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
-    max-height: 600px; /* Puedes ajustar esta altura para hacerla más grande o más pequeña */
+    width: 200%;
+    height: auto;
+    max-height: 600px;
 }
 
 
 .texto-alq1{
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    width: 70px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+}
+
+.footer-icons a {
+    display: inline-block;
+}
+
+.footer-icons {
+    text-align: center;
 }
