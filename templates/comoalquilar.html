@@ -1,0 +1,191 @@
+{% include 'header.html' %}
+
+<body>
+    <main class="container my-5">
+        <div class="row">
+            <!-- Columna izquierda: Acordeón de preguntas (más a la izquierda) -->
+            <div class="col-md-6" style="margin-left: -30px;"> <!-- Ajuste del margen izquierdo para mover el acordeón más a la izquierda -->
+                <h3 class="texto-alq1">Preguntas Frecuentes</h3>
+                <div class="accordion" id="accordionPreguntas">
+                    <!-- Pregunta 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                ¿Cómo puedo alquilar una cancha?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Para alquilar una cancha, solo tienes que visitar nuestra página de reservas, elegir el tipo de cancha y el horario disponible, y completar el proceso de pago.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                ¿Qué formas de pago aceptan?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Aceptamos pagos con tarjeta de crédito, débito y transferencia bancaria. También contamos con opciones de pago en efectivo en nuestras instalaciones.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                ¿Cuánto tiempo antes debo reservar?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Recomendamos hacer la reserva con al menos 24 horas de anticipación, especialmente durante los fines de semana o días festivos.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                ¿Las canchas están disponibles durante todo el año?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Sí, nuestras canchas están abiertas todo el año, con reservas disponibles incluso en temporada baja.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                ¿Puedo alquilar una cancha por horas?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Sí, ofrecemos alquileres por hora. Puedes elegir el tiempo de uso de la cancha al hacer tu reserva.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 6 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                ¿Qué deportes puedo practicar en el predio?
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Ofrecemos canchas de fútbol, tenis y pádel. Puedes elegir cualquiera de ellas para tu actividad deportiva.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 7 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSeven">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                ¿Hay alquiler de equipos?
+                            </button>
+                        </h2>
+                        <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Sí, tenemos alquiler de equipos para fútbol, tenis y pádel. Puedes alquilar raquetas, pelotas, y otros accesorios deportivos.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 8 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEight">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                ¿Ofrecen clases de deporte?
+                            </button>
+                        </h2>
+                        <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Sí, ofrecemos clases particulares y grupales de fútbol, tenis y pádel. Puedes consultar disponibilidad y horarios en nuestra web.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 9 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNine">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                ¿Cómo puedo contactar al personal?
+                            </button>
+                        </h2>
+                        <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Puedes contactarnos por teléfono, correo electrónico, o a través de nuestras redes sociales para cualquier consulta.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 10 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTen">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                ¿Hay estacionamiento disponible?
+                            </button>
+                        </h2>
+                        <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Sí, contamos con estacionamiento gratuito para nuestros clientes, tanto para coches como para bicicletas.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 11 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEleven">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                ¿Qué hago si tengo una reserva pero no puedo asistir?
+                            </button>
+                        </h2>
+                        <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Si no puedes asistir, te recomendamos cancelar o modificar la reserva con al menos 12 horas de anticipación. Puedes hacerlo desde tu cuenta en nuestra página web.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pregunta 12 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwelve">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                                ¿Puedo reservar una cancha para un grupo grande?
+                            </button>
+                        </h2>
+                        <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#accordionPreguntas">
+                            <div class="accordion-body">
+                                Sí, puedes hacer una reserva para un grupo grande. Asegúrate de indicar el número de personas al momento de la reserva para que podamos asignar el espacio adecuado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha: Imágenes con títulos (más grandes) -->
+            <!-- Columna derecha: Imágenes con títulos (más grandes) -->
+<div class="col-md-6">
+    <h3 class="texto-alq1"> Cómo Alquilar</h3>
+    <div class="row">
+        <!-- Imagen 1 -->
+        <div class="col-md-12 mb-4"> <!-- Haciendo que ocupe toda la columna para mayor ancho -->
+            <img src="{{ url_for('static', filename='img/imagen1.jpg') }}" class="d-block w-100" alt="Imagen Cancha de Futbol" style="height: 400px; object-fit: cover;">
+            <h5 class="text-center mt-2">Reserva</h5>
+        </div>
+        <!-- Imagen 2 -->
+        <div class="col-md-12 mb-4"> <!-- Haciendo que ocupe toda la columna para mayor ancho -->
+            <img src="{{ url_for('static', filename='img/imagen2.jpg') }}" class="d-block w-100" alt="Imagen Cancha de Tenis" style="height: 400px; object-fit: cover;">
+            <h5 class="text-center mt-2">Pago</h5>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html>

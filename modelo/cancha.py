@@ -19,15 +19,12 @@ def crear_tabla_cancha(conn):
 def insertar_cancha(conn, tipo, nombre):
     try:
         cursor = conn.cursor()
-        
-        
         query_check = "SELECT COUNT(*) FROM Canchas WHERE nombre = ?"
         cursor.execute(query_check, (nombre,))
         if cursor.fetchone()[0] > 0:
             print(f"Error: Ya existe una cancha con el nombre '{nombre}'.")
-            return False  
-        
-        
+            return False
+
         sql_insertar_cancha = """
         INSERT INTO Canchas (tipo, nombre)
         VALUES (?, ?)
@@ -35,12 +32,34 @@ def insertar_cancha(conn, tipo, nombre):
         cursor.execute(sql_insertar_cancha, (tipo, nombre))
         conn.commit()
         print(f"Cancha '{nombre}' insertada exitosamente.")
-        return True  
+        return True
     except Error as e:
         print(f"Error al insertar cancha: {e}")
-        return False  
+        return False
 
+def obtener_todas_las_canchas(conn):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Canchas")
+    return cursor.fetchall()
 
+def obtener_cancha_por_id(conn, id_cancha):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Canchas WHERE id_cancha = ?", (id_cancha,))
+    return cursor.fetchone()
+
+def actualizar_cancha(conn, id_cancha, tipo, nombre):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Canchas SET tipo = ?, nombre = ? WHERE id_cancha = ?", (tipo, nombre, id_cancha))
+    conn.commit()
+
+def eliminar_cancha(conn, id_cancha):
+    try:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM Canchas WHERE id_cancha = ?", (id_cancha,))
+        conn.commit()
+        print(f"Cancha con id {id_cancha} eliminada exitosamente.")
+    except Error as e:
+        print(f"Error al eliminar cancha: {e}")
 
 
 def obtener_canchas(conn, tipo_cancha):
@@ -51,4 +70,7 @@ def obtener_canchas(conn, tipo_cancha):
     cursor.execute(query, (tipo_cancha,))
     canchas = cursor.fetchall()
     return canchas
+
+
+
 

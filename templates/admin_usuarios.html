@@ -1,0 +1,37 @@
+{% include 'header.html' %}
+
+<main class="container mt-3 mb-3 d-flex flex-column justify-content-center align-items-center" style="min-height: 100;">
+    <h1 class="text-center mb-3">Panel ABM de Usuarios</h1>
+    <div class="text-center mb-3">
+        <a href="{{ url_for('admin_dashboard') }}">Volver</a>
+    </div>
+
+    <table class="table table-striped table-bordered shadow mt-3">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Mail</th>
+                <th>Nivel</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario[1] }}</td> <!-- Nombre -->
+                <td>{{ usuario[2] }}</td> <!-- Mail -->
+                <td>{{ usuario[4] }}</td> <!-- Rol -->
+                <td>
+                    {% if usuario[4] == 'administrador' %}
+                        <a href="{{ url_for('hacer_cliente', id=usuario[0]) }}">Hacer Cliente</a>
+                    {% else %}
+                        <a href="{{ url_for('hacer_admin', id=usuario[0]) }}">Hacer Admin</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+{% include 'footer.html' %}

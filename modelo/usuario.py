@@ -10,7 +10,8 @@ def crear_tabla_usuario(conn):
             id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
-            contraseña TEXT NOT NULL
+            contraseña TEXT NOT NULL,
+            rol TEXT NOT NULL
         );
         """
         cursor.execute(sql_crear_tabla_usuarios)
@@ -18,15 +19,15 @@ def crear_tabla_usuario(conn):
     except Error as e:
         print(f"Error al crear la tabla: {e}")
 
-def insertar_usuario(conn, nombre, email, contraseña):
+def insertar_usuario(conn, nombre, email, contraseña, rol):
     try:
         cursor = conn.cursor()
-        contraseña_hash = generate_password_hash(contraseña)  # Cifra la contraseña
+        contraseña_hash = generate_password_hash(contraseña)
         sql_insertar_usuario = """
-        INSERT INTO Usuarios (nombre, email, contraseña)
-        VALUES (?, ?, ?)
+        INSERT INTO Usuarios (nombre, email, contraseña, rol)
+        VALUES (?, ?, ?, ?)
         """
-        cursor.execute(sql_insertar_usuario, (nombre, email, contraseña_hash))
+        cursor.execute(sql_insertar_usuario, (nombre, email, contraseña_hash, rol))
         conn.commit()
         print("Usuario insertado exitosamente.")
     except Error as e:
@@ -44,6 +45,17 @@ def verificar_contraseña(conn, email, contraseña):
         contraseña_hash = usuario[3]
         return check_password_hash(contraseña_hash, contraseña)
     return False
+
+def actualizar_nivel(conn, id_usuario, nuevo_nivel):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Usuarios SET rol = ? WHERE id_usuario = ?", (nuevo_nivel, id_usuario))
+    conn.commit()
+
+def obtener_todos_los_usuarios(conn):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Usuarios")
+    return cursor.fetchall()
+
 
 
 
