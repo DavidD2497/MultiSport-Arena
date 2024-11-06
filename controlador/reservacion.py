@@ -11,20 +11,25 @@ DATABASE = 'reserva_canchas.db'
 # Ruta para mostrar el calendario de reservas
 @reserva_bp.route('/reserva')
 def calendario():
-    conn = crear_conexion(DATABASE)
+    try:
+        conn = crear_conexion(DATABASE)
+        
+        # Obtener canchas filtradas por el tipo de cancha
+        canchas = obtener_canchas(conn)  # Asume que la función ahora recibe un parámetro de tipo
+        reservas = obtener_reservas(conn)
+        
+        conn.close()
+
+    except Exception as e:
+        flash(f'Error al obtener datos: {str(e)}', 'danger')
+        return redirect(url_for('index'))  # O redirigir a alguna página de error
     
-    # Obtener canchas y reservas de la base de datos
-    canchas = obtener_canchas(conn)
-    reservas = obtener_reservas(conn)
-    
-    conn.close()
-    
-    # Pasar la información de las canchas y reservas a la plantilla
-    return render_template('reserva.html', canchas=canchas, reservas=reservas)
+    return render_template('reserva.html', canchas=canchas, reservas=reservas, tipo_cancha=tipo_cancha)
+
 
 # Ruta para hacer una nueva reserva
-@reserva_bp.route('/hacer_reserva', methods=['GET', 'POST'])
-def hacer_reserva():
+@reserva_bp.route('/hacer_reserva/<tipo_cancha>', methods=['GET', 'POST'])
+def hacer_reserva(tipo_cancha):
     if 'user_id' not in session:
         flash('Debes iniciar sesión para hacer una reserva', 'danger')
         return redirect(url_for('auth.login'))  # Asegúrate de que el blueprint se llame 'auth_bp'
@@ -51,7 +56,7 @@ def hacer_reserva():
         if count > 0:
             flash('¡Error! Ya existe una reserva para esa cancha, fecha y hora. Por favor, elige otro horario.', 'danger')
             conn.close()
-            return redirect(url_for('reserva.hacer_reserva'))
+            return redirect(url_for('reserva.hacer_reserva', tipo_cancha=tipo_cancha))
 
         # Si no existe, insertar la nueva reserva
         insertar_reserva(conn, session['user_id'], cancha_id, fecha, hora, estado)
@@ -62,7 +67,7 @@ def hacer_reserva():
 
     # Mostrar las canchas disponibles al hacer una nueva reserva
     conn = crear_conexion(DATABASE)
-    canchas = obtener_canchas(conn)
+    canchas = obtener_canchas(conn, tipo_cancha)
     conn.close()
 
-    return render_template('hacer_reserva.html', canchas=canchas)
+    return render_template('hacer_reserva.html', canchas=canchas, tipo_cancha=tipo_cancha)

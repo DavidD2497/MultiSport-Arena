@@ -42,8 +42,13 @@ def insertar_cancha(conn, tipo, nombre):
 
 
 
-def obtener_canchas(conn):
+
+def obtener_canchas(conn, tipo_cancha):
+    query = """
+        SELECT id_cancha, nombre FROM Canchas WHERE tipo = ?
+    """
     cursor = conn.cursor()
-    query = "SELECT * FROM Canchas"  # Asegúrate de usar 'Canchas' y no 'Cancha'
-    cursor.execute(query)
-    return cursor.fetchall()
+    cursor.execute(query, (tipo_cancha,))
+    canchas = cursor.fetchall()
+    return canchas
+

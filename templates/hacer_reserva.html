@@ -1,7 +1,6 @@
 {% include 'header.html'%}
 
 <main>
-    <h1>Hacer una Reserva</h1>
 
     <!-- Mostrar mensajes de error o éxito -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -14,24 +13,41 @@
         {% endif %}
     {% endwith %}
 
-    <form method="POST" action="{{ url_for('reserva.hacer_reserva') }}">
-        <label for="cancha_id">Cancha:</label>
-        <select name="cancha_id" id="cancha_id" required>
-            {% for cancha in canchas %}
-                <option value="{{ cancha[0] }}">{{ cancha[1] }}</option>
-            {% endfor %}
-        </select>
 
-        <label for="fecha">Fecha:</label>
-        <input type="date" name="fecha" id="fecha" required>
 
-        <label for="hora">Hora:</label>
-        <input type="time" name="hora" id="hora" required>
-
-        <button type="submit">Reservar</button>
-    </form>
-
-    <a href="{{ url_for('reserva.calendario') }}">Volver al calendario</a>
-</main>
-
-{% include 'footer.html' %}
+        <main class="bg-light">
+            <div class="container mt-5">
+                <h1 class="text-center">Reserva tu Cancha de {{ tipo_cancha.capitalize() }}</h1>
+        
+                <!-- Formulario para hacer una reserva -->
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="cancha_id">Selecciona una cancha</label>
+                        <select name="cancha_id" id="cancha_id" class="form-select" required>
+                            <option value="" disabled selected>Elige una cancha</option>
+                            {% for cancha in canchas %}
+                                <option value="{{ cancha[0] }}">{{ cancha[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+        
+                    <div class="form-group mt-3">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
+                    </div>
+        
+                    <div class="form-group mt-3">
+                        <label for="hora">Hora</label>
+                        <input type="time" name="hora" id="hora" class="form-control" required>
+                    </div>
+        
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-success w-100">Hacer Reserva</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        
+        {% include 'footer.html' %}
+        
+        
