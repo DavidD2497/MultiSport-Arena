@@ -1,0 +1,48 @@
+{% include 'header.html' %}
+
+<section id="sobre-nosotros" class="container-fluid my-5">
+    
+
+    <div id="carouselSobreNosotros" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Primer item -->
+            <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='img/imagen1.jpg') }}" class="d-block w-100" alt="Persona 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Juan Pérez</h5>
+                    <p>Fundador y CEO. Apasionado por la innovación y el deporte. Su misión es crear espacios para que todos disfruten de su tiempo libre.</p>
+                </div>
+            </div>
+
+            <!-- Segundo item -->
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='img/imagen1s.jpg') }}" class="d-block w-100" alt="Persona 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>María García</h5>
+                    <p>Directora de operaciones. Con más de 10 años de experiencia en la gestión de instalaciones deportivas, María es la clave del éxito de nuestro proyecto.</p>
+                </div>
+            </div>
+
+            <!-- Tercer item -->
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='img/imagen3.jpg') }}" class="d-block w-100" alt="Persona 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Carlos López</h5>
+                    <p>Director de Marketing. Carlos se encarga de promover nuestras instalaciones para que lleguemos a más personas cada día.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselSobreNosotros" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselSobreNosotros" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+</section>
+
+{% include 'footer.html' %}
+
+    
