@@ -46,6 +46,16 @@ def verificar_contraseña(conn, email, contraseña):
         return check_password_hash(contraseña_hash, contraseña)
     return False
 
+def actualizar_nivel(conn, id_usuario, nuevo_nivel):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Usuarios SET rol = ? WHERE id_usuario = ?", (nuevo_nivel, id_usuario))
+    conn.commit()
+
+def obtener_todos_los_usuarios(conn):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Usuarios")
+    return cursor.fetchall()
+
 
 
 

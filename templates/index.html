@@ -35,14 +35,13 @@
     function habilitarBotonReservar() {
         const select = document.getElementById('tipoCancha');
         const btnReservar = document.getElementById('btnReservar');
-        btnReservar.disabled = select.value === ""; // Habilita el botón si se selecciona un tipo de cancha
+        btnReservar.disabled = select.value === "";
     }
 
     function redirigir() {
         const select = document.getElementById('tipoCancha');
         const tipoCancha = select.value;
-
-        // Redirige a la ruta de reserva según el tipo de cancha seleccionado
+        
         window.location.href = `/reservar/${tipoCancha}`;
     }
 </script>

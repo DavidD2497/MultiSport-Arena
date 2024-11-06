@@ -1,0 +1,31 @@
+{% include 'header.html' %}
+
+<main class="container mt-3 mb-3 d-flex flex-column justify-content-center align-items-center">
+    <h1 class="text-center mb-3">Modificar Cancha</h1>
+    <div class="text-center mb-3">
+        <a href="{{ url_for('admin_canchas') }}">Volver</a>
+    </div>
+    <form class="mt-3 mb-3 w-50" action="{{ url_for('actualizar_cancha_route', id=cancha[0]) }}" method="post">
+        <fieldset class="rounded shadow p-3 mb-2">
+            <legend class="fw-bold">Información de la Cancha</legend>
+            <div>
+                <label for="nombreCancha" class="form-label">Nombre de la cancha:</label>
+                <input id="nombreCancha" name="nombre" type="text" class="form-control" value="{{ cancha[2] }}" required />
+            </div>
+            <div>
+                <label for="tipoCancha" class="form-label">Tipo de cancha:</label>
+                <select id="tipoCancha" name="tipo" class="form-control" required>
+                    <option value="padel" {% if cancha[1] == 'padel' %}selected{% endif %}>Padel</option>
+                    <option value="tenis" {% if cancha[1] == 'tenis' %}selected{% endif %}>Tenis</option>
+                    <option value="futbol" {% if cancha[1] == 'futbol' %}selected{% endif %}>Futbol</option>
+                </select>
+            </div>
+        </fieldset>
+        <div class="d-flex justify-content-center m-3">
+            <input type="submit" class="btn btnFormulario btn-primary" value="Actualizar cancha">
+        </div>
+    </form>
+</main>
+
+{% include 'footer.html' %}
+
