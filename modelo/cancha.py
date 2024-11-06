@@ -20,14 +20,14 @@ def insertar_cancha(conn, tipo, nombre):
     try:
         cursor = conn.cursor()
         
-        # Verificar si la cancha ya existe
+        
         query_check = "SELECT COUNT(*) FROM Canchas WHERE nombre = ?"
         cursor.execute(query_check, (nombre,))
         if cursor.fetchone()[0] > 0:
             print(f"Error: Ya existe una cancha con el nombre '{nombre}'.")
-            return False  # Si la cancha ya existe, no insertamos
+            return False  
         
-        # Insertar la nueva cancha
+        
         sql_insertar_cancha = """
         INSERT INTO Canchas (tipo, nombre)
         VALUES (?, ?)
@@ -35,10 +35,10 @@ def insertar_cancha(conn, tipo, nombre):
         cursor.execute(sql_insertar_cancha, (tipo, nombre))
         conn.commit()
         print(f"Cancha '{nombre}' insertada exitosamente.")
-        return True  # Retornar True para indicar éxito
+        return True  
     except Error as e:
         print(f"Error al insertar cancha: {e}")
-        return False  # Si ocurre un error, retornamos False
+        return False  
 
 
 
