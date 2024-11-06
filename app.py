@@ -44,7 +44,7 @@ def admin_usuarios():
 @app.route('/admin/usuarios/hacer_admin/<int:id>')
 def hacer_admin(id):
     conn = crear_conexion("reserva_canchas.db")
-    actualizar_nivel(conn, id, 'admin')
+    actualizar_nivel(conn, id, 'administrador')
     conn.close()
     return redirect(url_for('admin_usuarios'))
 
