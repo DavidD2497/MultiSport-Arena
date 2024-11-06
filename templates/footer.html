@@ -1,28 +1,57 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilos/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Footer</title>
-</head>
 <body>
-    <footer class="footer">
-        <div class="footer-icons">
-            <a href="https://www.instagram.com" target="_blank" class="icon">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.facebook.com" target="_blank" class="icon">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.twitter.com" target="_blank" class="icon">
-                <i class="fab fa-twitter"></i>
-            </a>
-        </div>
-        <p class="footer-text">MultiSport derechos reservados @2024</p>
-    </footer>
-</body>
-</html>
+    <main>
+        <!-- Tu contenido principal aquí -->
+    </main>
 
+    <footer class="footer bg-dark text-light py-2.5">
+        <!-- Sección de Redes Sociales con imágenes -->
+        <div class="row text-center mb-4">
+            <div class="col-md-12">
+                <h5 class="mb-3">Síguenos en nuestras redes sociales</h5>
+                <div class="footer-icons">
+                    <!-- Imagenes de los iconos de redes sociales -->
+                    <a href="https://www.instagram.com" target="_blank" class="mx-3">
+                        <img src="{{ url_for('static', filename='img/ig.png') }}" alt="Instagram" class="social-icon">
+                    </a>
+                    
+                    <a href="https://www.twitter.com" target="_blank" class="mx-3">
+                        <img src="{{ url_for('static', filename='img/facebook.svg') }}" alt="Twitter" class="social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Información Legal -->
+        <div class="row text-center mt-4">
+            <div class="col-md-12">
+                <p class="footer-text m-0">© 2024 MultiSport - Todos los derechos reservados</p>
+                <p class="m-0">
+                    <a href="#" class="text-light">Términos y Condiciones</a> | 
+                    <a href="#" class="text-light">Política de Privacidad</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        /* Estilo para los iconos de redes sociales */
+        .social-icon {
+            width: 70px; /* Ajusta el tamaño de los iconos */
+            height: 40px;
+            transition: transform 0.3s ease; /* Efecto de transición */
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2); /* Aumenta el tamaño al pasar el ratón */
+        }
+
+        .footer-icons a {
+            display: inline-block;
+        }
+
+        /* Espaciado entre los iconos */
+        .footer-icons {
+            text-align: center;
+        }
+    </style>
+</body>

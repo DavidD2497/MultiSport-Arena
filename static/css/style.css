@@ -114,7 +114,7 @@ textarea {
 }
 
 button {
-    background-color: #0044cc;
+    background-color: #173e21;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -122,9 +122,6 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #003399;
-} 
 
 /* Cambiar el color de fondo de las flechas de navegación */
 .carousel-control-prev, .carousel-control-next {
@@ -140,3 +137,61 @@ button:hover {
     background-color: rgb(0, 0, 1); /* Color de las flechas (por defecto en blanco) */
 }
 
+#carouselSobreNosotros .carousel-item img {
+    height: 500px; /* Ajusta el valor según el tamaño deseado */
+    object-fit: cover; /* Esto asegura que la imagen se ajuste bien al tamaño reducido */
+}
+
+/* Opcional: para reducir el tamaño de los íconos */
+.btn-privado .carousel-control-prev-icon,
+.btn-privado .carousel-control-next-icon {
+    width: 30px; /* Ajusta el tamaño según prefieras */
+    height: 30px;
+}
+
+
+.carousel-caption {
+    background-color: rgba(14, 13, 14, 0.5); /* Fondo claro semitransparente */
+    padding: 4px 8px; /* Compacto */
+    border-radius: 6px; /* Esquinas redondeadas */
+    max-width: 50%; /* Ancho máximo */
+    margin: 0 auto; /* Centro */
+    color: rgb(255, 255, 255) !important; /* Fuerza el color negro */
+    font-size: 20px;
+}
+
+.sobrenosotros{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.contenido-extra {
+    margin-top: 2rem;
+    margin-bottom: 30px; /* Agregar margen inferior */
+    text-align: left;
+}
+
+.titulo-extra {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.contenido-extra p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Asegurar que la imagen sea más grande */
+.img-grande {
+    width: 200%; /* Hace que la imagen ocupe todo el ancho de su contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    max-height: 600px; /* Puedes ajustar esta altura para hacerla más grande o más pequeña */
+}
+
+
+.texto-alq1{
+    text-align: center;
+    margin-bottom: 20px;
+}

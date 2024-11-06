@@ -1,48 +1,59 @@
 {% include 'header.html' %}
 
-<section id="sobre-nosotros" class="container-fluid my-5">
-    
-
+<section id="sobre-nosotros" class="sobrenosotros">
     <div id="carouselSobreNosotros" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <!-- Primer item -->
             <div class="carousel-item active">
                 <img src="{{ url_for('static', filename='img/imagen1.jpg') }}" class="d-block w-100" alt="Persona 1">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Juan Pérez</h5>
-                    <p>Fundador y CEO. Apasionado por la innovación y el deporte. Su misión es crear espacios para que todos disfruten de su tiempo libre.</p>
+                    <strong>Cancha de Futbol</strong>
+                    <p>Contamos con canchas de futbol 5,7,9 y 11. Todas las canchas son de pasto sintético.</p>
                 </div>
             </div>
-
             <!-- Segundo item -->
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='img/imagen1s.jpg') }}" class="d-block w-100" alt="Persona 2">
+                <img src="{{ url_for('static', filename='img/imagen3.jpg') }}" class="d-block w-100" alt="Persona 2">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>María García</h5>
-                    <p>Directora de operaciones. Con más de 10 años de experiencia en la gestión de instalaciones deportivas, María es la clave del éxito de nuestro proyecto.</p>
+                    <strong>Cancha de Tenis</strong>
+                    <p>Contamos con canchas de tenis equipadas con iluminación para el turno nocturno. Abiertas todo el año para jugadores de todos los niveles.</p>
                 </div>
             </div>
-
             <!-- Tercer item -->
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='img/imagen3.jpg') }}" class="d-block w-100" alt="Persona 3">
+                <img src="{{ url_for('static', filename='img/imagen2.jpg') }}" class="d-block w-100" alt="Persona 3">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Carlos López</h5>
-                    <p>Director de Marketing. Carlos se encarga de promover nuestras instalaciones para que lleguemos a más personas cada día.</p>
+                    <strong>Cancha de Padel</strong>
+                    <p>Contamos con instalaciones de última generación para el mejor rendimiento en padel.</p>
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselSobreNosotros" data-bs-slide="prev">
+        <button class="carousel-control-prev btn-privado" type="button" data-bs-target="#carouselSobreNosotros" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Anterior</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselSobreNosotros" data-bs-slide="next">
+        <button class="carousel-control-next btn-privado" type="button" data-bs-target="#carouselSobreNosotros" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Siguiente</span>
         </button>
     </div>
 </section>
 
-{% include 'footer.html' %}
+<section class="contenido-extra container mt-4 mb-4">
+    <div class="row align-items-center">
+        <!-- Imagen más grande a la izquierda -->
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='img/imagen6.jpg') }}" class="img-fluid rounded img-grande" alt="Descripción de la imagen">
+        </div>
+        <!-- Título y párrafo a la derecha -->
+        <div class="col-md-6">
+            <h2 class="titulo-extra">Sobre Nosotros</h2>
+            <p>Nosotros somos MultiSport, un grupo de inversores fanáticos del deporte. Desde 2021 hasta el día de hoy, estamos orgullosos de lo que hemos logrado: hemos ampliado el predio y sumado más deportes, con el objetivo de ofrecer una variedad de opciones para todos los amantes de la actividad física. Nuestro compromiso es crear un espacio inclusivo y accesible para personas de todas las edades y niveles, brindando instalaciones de primer nivel para el disfrute de la comunidad.</p>
 
-    
+            <p>Contamos con un predio en Ezeiza, en el cual tenemos canchas de fútbol, pádel y tenis. Cada una de estas canchas está equipada con tecnología de última generación, como césped sintético de alta calidad, iluminación para turnos nocturnos y sistemas de drenaje para garantizar su uso durante todo el año, incluso en condiciones climáticas adversas.</p>
+        </div>
+    </div>
+</section>
+
+
+{% include 'footer.html' %}

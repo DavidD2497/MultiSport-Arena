@@ -22,6 +22,10 @@ def index():
 def contacto():
     return render_template('contacto.html')
 
+@app.route('/comoalquilar')
+def comoalquilar():
+    return render_template('comoalquilar.html')
+
 @app.route('/sobrenosotros')
 def sobrenosotros():
     return render_template('sobrenosotros.html')
