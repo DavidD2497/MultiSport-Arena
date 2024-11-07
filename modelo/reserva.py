@@ -64,3 +64,15 @@ def eliminar_reserva(conn, id_reserva):
     cursor.execute("DELETE FROM Reservas WHERE id_reserva = ?", (id_reserva,))
     conn.commit()
 
+def obtener_reservas(conn):
+    query = """
+        SELECT reservas.id_reserva, canchas.nombre AS cancha_nombre, reservas.fecha, 
+               reservas.hora, reservas.estado
+        FROM reservas
+        JOIN canchas ON reservas.id_cancha = canchas.id_cancha
+    """
+    cursor = conn.cursor()
+    cursor.execute(query)
+    reservas = cursor.fetchall()
+    print("Reservas obtenidas:", reservas)
+    return reservas

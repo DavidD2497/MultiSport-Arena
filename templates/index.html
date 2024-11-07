@@ -1,22 +1,4 @@
-
 {% include 'header.html' %}
-
-<body>
-    <nav>
-
-    </nav>
-
-
-    <main>
-
-    </main>
-
-    
-   
-    
-</body>
-</html>
-
 
 <main class="bg-light d-flex">
     <div class="container d-flex align-items-center">
@@ -60,7 +42,7 @@
         const select = document.getElementById('tipoCancha');
         const tipoCancha = select.value;
         
-        window.location.href = `/reservar/${tipoCancha}`;
+        window.location.href = `/reserva/hacer_reserva/${tipoCancha}`;
     }
 </script>
 
