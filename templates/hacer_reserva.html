@@ -68,8 +68,10 @@
                 <div class="input-icon">
                     <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX XXXX XXXX XXXX"
                         required inputmode="numeric" maxlength="19" oninput="soloNumeros(this)">
-                    <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Tarjeta Visa"
-                        class="icono-tarjeta">
+                    <!-- <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Tarjeta Visa"
+                        class="icono-tarjeta"> -->
+                        <img id="visaLogo" src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa" class="icono-tarjeta" style="display: none; width: 40px;">
+                        <img id="mastercardLogo" src="{{ url_for('static', filename='img/master.png') }}" alt="MasterCard" class="icono-tarjeta" style="display: none; width: 40px;">
                 </div>
             </div>
 
@@ -220,6 +222,29 @@
         }
         return sum % 10 === 0;
     }
+    document.getElementById('numeroTarjeta').addEventListener('input', function(event) {
+    const tarjetaInput = event.target.value;
+    const visaRegex = /^4/; // Visa comienza con 4
+    const mastercardRegex = /^5[1-5]/; // MasterCard comienza con 51 a 55
+
+    // Ocultar ambos logos inicialmente
+    document.getElementById('visaLogo').style.display = 'none';
+    document.getElementById('mastercardLogo').style.display = 'none';
+
+    // Si el campo de número de tarjeta está vacío, no hacer nada más
+    if (!tarjetaInput) {
+        return; // Si está vacío, no mostramos nada
+    }
+
+    // Verificar si es Visa
+    if (visaRegex.test(tarjetaInput)) {
+        document.getElementById('visaLogo').style.display = 'inline'; // Mostrar el logo de Visa
+    }
+    // Verificar si es MasterCard
+    else if (mastercardRegex.test(tarjetaInput)) {
+        document.getElementById('mastercardLogo').style.display = 'inline'; // Mostrar el logo de MasterCard
+    }
+});
     document.getElementById('fechaVencimiento').addEventListener('input', function (event) {
         let value = event.target.value;
 
