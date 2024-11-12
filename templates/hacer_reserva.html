@@ -14,7 +14,20 @@
     <div class="container mt-5">
         <h1 class="text-center">Reserva tu Cancha de {{ tipo_cancha.capitalize() }}</h1>
         <div id="calendar" class="mb-4"></div>
-
+        <div class="d-flex justify-content-center mb-4">
+            <div class="d-flex align-items-center mx-3">
+                <span class="disponible" style="width: 20px; height: 20px; display: inline-block; background-color: green; margin-right: 8px;"></span>
+                <span>Disponible</span>
+            </div>
+            <div class="d-flex align-items-center mx-3">
+                <span class="reservado" style="width: 20px; height: 20px; display: inline-block; background-color: red; margin-right: 8px;"></span>
+                <span>Reservado</span>
+            </div>
+            <div class="d-flex align-items-center mx-3">
+                <span class="pasado" style="width: 20px; height: 20px; display: inline-block; background-color: gray; margin-right: 8px;"></span>
+                <span>Pasado</span>
+            </div>
+        </div>
         <!--Formulario calendario -->
         <div id="formulario_reserva" style="display: none;">
             <form method="POST" action="{{ url_for('reserva.hacer_reserva', tipo_cancha=tipo_cancha) }}">
@@ -34,17 +47,82 @@
             </form>
         </div>
     </div>
+    <div class="d-flex justify-content-center align-items-center mb-4">
+        <button class="btn btn-link text-decoration-none" onclick="cambiarFecha(-1)" style="font-size: 2rem;">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <h2 id="fechaActual" class="mx-4 mb-0">11/11/2024</h2>
+        <button class="btn btn-link text-decoration-none" onclick="cambiarFecha(1)" style="font-size: 2rem;">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow">
+            <thead>
+                <tr>
+                    <th class="bg-light">Cancha</th>
+                    {% for hora in range(10, 21) %}
+                    <th class="text-center bg-light">{{ hora }}:00</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody id="tablaCanchas">
+                {% for cancha in canchas %}
+                <tr>
+                    <td class="bg-light">{{ cancha[1] }}</td>
+                    {% for hora in range(10, 21) %}
+                    <td class="p-0" style="height: 40px; min-width: 80px;">
+                        <div 
+                            class="reserva-celda w-100 h-100"
+                            data-cancha-id="{{ cancha[0] }}" 
+                            data-hora="{{ hora }}"
+                            onclick="seleccionarHorario(this)"
+                        ></div>
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="formPago" class="mt-4 d-none">
+        <h3 class="mb-3">Completar Reserva</h3>
+        <form id="formularioPago" class="row g-3" style="max-width: 600px; margin: 0 auto;">
+            <input type="hidden" id="canchaId" name="id_cancha">
+            <input type="hidden" id="hora" name="hora">
+            <input type="hidden" id="fecha" name="fecha">
+            
+            <div class="col-md-12">
+                <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
+                <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX XXXX XXXX XXXX" required>
+            </div>
+            <div class="col-md-6">
+                <label for="fechaVencimiento" class="form-label">Fecha de Vencimiento</label>
+                <input type="text" class="form-control" id="fechaVencimiento" placeholder="MM/YY" required>
+            </div>
+            <div class="col-md-6">
+                <label for="codigoSeguridad" class="form-label">Código de Seguridad</label>
+                <input type="text" class="form-control" id="codigoSeguridad" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Hacer Pago</button>
+            </div>
+        </form>
+    </div>
 </main>
 
 <!--Script fullcalender-->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.0/main.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
             locale: 'es',
+            selectable: true,  // Permitir seleccionar horas en el calendario
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
@@ -53,24 +131,36 @@
             slotMinTime: '10:00',
             slotMaxTime: '21:00',
             validRange: {
-                start: new Date().toISOString().split('T')[0],  // No permitir fechas pasadas
+                start: new Date().toISOString().split('T')[0]  // No permitir fechas pasadas
             },
-            events: '/reserva/obtener_reservas?tipo_cancha={{ tipo_cancha }}',  // URL para obtener las reservas
-            eventColor: 'red',  // Color por defecto para los eventos
-            eventTextColor: 'white',  // Color del texto del evento
+            events: '/reserva/obtener_reservas?tipo_cancha={{ tipo_cancha }}',
+            eventColor: 'red',
+            eventTextColor: 'white',
             eventClick: function(info) {
                 var event = info.event;
 
-                // Asigna la fecha (formato YYYY-MM-DD)
-                var fecha = event.start.toISOString().split('T')[0];
-                document.getElementById('fecha').value = fecha;
-
-                // Asigna la hora (formato HH:mm)
-                var hora = event.start.getHours().toString().padStart(2, '0') + ':' + event.start.getMinutes().toString().padStart(2, '0');
-                document.getElementById('hora').value = hora;
+                // Asigna la fecha y la hora seleccionadas
+                document.getElementById('fecha').value = event.start.toISOString().split('T')[0];
+                document.getElementById('hora').value = 
+                    event.start.getHours().toString().padStart(2, '0') + ':' +
+                    event.start.getMinutes().toString().padStart(2, '0');
 
                 // Muestra el formulario
                 document.getElementById('formulario_reserva').style.display = 'block';
+                document.getElementById('formulario_reserva').scrollIntoView({ behavior: 'smooth' });
+            },
+            select: function(info) {
+                // Captura el rango seleccionado
+                var fecha = info.startStr.split('T')[0];
+                var horaInicio = info.startStr.split('T')[1].slice(0, 5); // Obtener HH:mm de la hora de inicio
+
+                // Asigna la fecha y la hora seleccionadas
+                document.getElementById('fecha').value = fecha;
+                document.getElementById('hora').value = horaInicio;
+
+                // Muestra el formulario
+                document.getElementById('formulario_reserva').style.display = 'block';
+                document.getElementById('formulario_reserva').scrollIntoView({ behavior: 'smooth' });
             }
         });
 

@@ -73,7 +73,7 @@ def hacer_reserva(tipo_cancha):
 
     if request.method == 'POST':
         # Recibir los datos del formulario
-        cancha_id = request.form['cancha_id']
+        id_cancha = request.form['id_cancha']
         fecha = request.form['fecha']
         hora = request.form['hora']
         estado = "Por confirmar"
@@ -102,7 +102,7 @@ def hacer_reserva(tipo_cancha):
             WHERE id_cancha = ? AND fecha = ? AND hora = ?
         """
         cursor = conn.cursor()
-        cursor.execute(query_check, (cancha_id, fecha, hora))
+        cursor.execute(query_check, (id_cancha, fecha, hora))
         count = cursor.fetchone()[0]
 
         if count > 0:
@@ -110,7 +110,7 @@ def hacer_reserva(tipo_cancha):
             conn.close()
             return redirect(url_for('reserva.hacer_reserva', tipo_cancha=tipo_cancha))
 
-        insertar_reserva(conn, session['user_id'], cancha_id, fecha, hora, estado)
+        insertar_reserva(conn, session['user_id'], id_cancha, fecha, hora, estado)
         conn.close()
 
         flash('Reserva realizada con éxito.', 'success')
