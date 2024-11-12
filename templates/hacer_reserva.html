@@ -1,54 +1,196 @@
-{% include 'header.html'%}
+{% include 'header.html' %}
 
-<main>
+<main class="container py-4">
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flashes">
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
+    <div class="d-flex justify-content-center mb-4">
+        <div class="d-flex align-items-center mx-3">
+            <span class="disponible"
+                style="width: 20px; height: 20px; display: inline-block; margin-right: 8px;"></span>
+            <span>Disponible</span>
+        </div>
+        <div class="d-flex align-items-center mx-3">
+            <span class="reservado" style="width: 20px; height: 20px; display: inline-block; margin-right: 8px;"></span>
+            <span>Reservado</span>
+        </div>
+        <div class="d-flex align-items-center mx-3">
+            <span class="pasado" style="width: 20px; height: 20px; display: inline-block; margin-right: 8px;"></span>
+            <span>Pasado</span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center mb-4">
+        <button class="btn btn-link text-decoration-none" onclick="cambiarFecha(-1)" style="font-size: 2rem;">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <h2 id="fechaActual" class="mx-4 mb-0">11/11/2024</h2>
+        <button class="btn btn-link text-decoration-none" onclick="cambiarFecha(1)" style="font-size: 2rem;">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow">
+            <thead>
+                <tr>
+                    <th class="bg-light">Cancha</th>
+                    {% for hora in range(14, 24) %}
+                    <th class="text-center bg-light">{{ hora }}:00</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody id="tablaCanchas">
+                {% for cancha in canchas %}
+                <tr>
+                    <td class="bg-light">{{ cancha[1] }}</td>
+                    {% for hora in range(14, 24) %}
+                    <td class="p-0" style="height: 40px; min-width: 80px;">
+                        <div class="reserva-celda w-100 h-100" data-cancha-id="{{ cancha[0] }}" data-hora="{{ hora }} "
+                            onclick="seleccionarHorario(this)"></div>
+                    </td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+            </tbody>
+        </table>
+    </div>
 
 
+    <div id="formPago" class="mt-4 d-none">
+        <h3 class="mb-3">Completar Reserva</h3>
 
-        <main class="bg-light">
-            <div class="container mt-5">
-                <h1 class="text-center">Reserva tu Cancha de {{ tipo_cancha.capitalize() }}</h1>
-                <form method="POST" action="{{ url_for('reserva.hacer_reserva', tipo_cancha=tipo_cancha) }}">
-                    <div class="form-group">
-                        <label for="cancha_id">Selecciona una cancha</label>
-                        <select name="cancha_id" id="cancha_id" class="form-select" required>
-                            <option value="" disabled selected>Elige una cancha</option>
-                            {% for cancha in canchas %}
-                                <option value="{{ cancha[0] }}">{{ cancha[1] }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-        
-                    <div class="form-group mt-3">
-                        <label for="fecha">Fecha</label>
-                        <input type="date" name="fecha" id="fecha" class="form-control" required>
-                    </div>
-        
-                    <div class="form-group mt-3">
-                        <label for="hora">Selecciona una hora:</label>
-                        <select name="hora" id="hora" required>
-                            {% for hora in horas_disponibles %}
-                                <option value="{{ hora }}">{{ hora }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-        
-                    <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-success w-100">Hacer Reserva</button>
-                    </div>
-                </form>
+        <form id="formularioPago" class="row g-3" style="max-width: 600px; margin: 0 auto;">
+            <input type="hidden" id="canchaId" name="id_cancha">
+            <input type="hidden" id="hora" name="hora">
+            <input type="hidden" id="fecha" name="fecha">
+
+            <div class="col-md-12">
+                <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
+                <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX XXXX XXXX XXXX" required>
             </div>
-        </main>
-        
-        {% include 'footer.html' %}
-        
-        
+            <div class="col-md-6">
+                <label for="fechaVencimiento" class="form-label">Fecha de Vencimiento</label>
+                <input type="text" class="form-control" id="fechaVencimiento" placeholder="MM/YY" required>
+            </div>
+            <div class="col-md-6">
+                <label for="codigoSeguridad" class="form-label">Código de Seguridad</label>
+                <input type="text" class="form-control" id="codigoSeguridad" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Hacer Pago</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script>
+    let fechaActual = new Date();
+
+    function actualizarFechaVisual() {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        document.getElementById('fechaActual').textContent = fechaActual.toLocaleDateString('es-ES', options);
+    }
+
+    function cambiarFecha(dias) {
+        const nuevaFecha = new Date(fechaActual);
+        nuevaFecha.setDate(nuevaFecha.getDate() + dias);
+
+        if (nuevaFecha < new Date().setHours(0, 0, 0, 0)) {
+            return;
+        }
+
+        fechaActual = nuevaFecha;
+        actualizarFechaVisual();
+        actualizarEstadoCeldas();
+    }
+
+    function actualizarEstadoCeldas() {
+        const fecha = fechaActual.toISOString().split('T')[0];
+        const ahora = new Date();
+        const horaActual = ahora.getHours();
+        const celdas = document.getElementsByClassName('reserva-celda');
+
+        fetch(`/reserva/obtener_horarios?fecha=${fecha}`)
+            .then(response => response.json())
+            .then(reservas => {
+                Array.from(celdas).forEach(celda => {
+                    const hora = parseInt(celda.dataset.hora);
+                    const canchaId = parseInt(celda.dataset.canchaId);
+
+                    if (fechaActual.toDateString() === ahora.toDateString() && hora <= horaActual) {
+                        celda.className = 'reserva-celda pasado';
+                    } else {
+                        const estaReservado = reservas.some(r =>
+                            r.id_cancha === canchaId &&
+                            r.hora === hora
+                        );
+
+                        if (estaReservado) {
+                            celda.className = 'reserva-celda reservado';
+                        } else {
+                            celda.className = 'reserva-celda disponible';
+                        }
+                    }
+
+                    celda.style.display = 'block';
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener las reservas:', error);
+            });
+    }
+
+    function seleccionarHorario(celda) {
+        if (!celda.classList.contains('disponible')) {
+            return;
+        }
+
+        const celdasSeleccionadas = document.querySelectorAll('.reserva-celda.seleccionada');
+        celdasSeleccionadas.forEach(celda => celda.classList.remove('seleccionada'));
+
+        celda.classList.add('seleccionada');
+
+        const formPago = document.getElementById('formPago');
+        const canchaId = celda.dataset.canchaId;
+        const hora = celda.dataset.hora;
+
+        document.getElementById('canchaId').value = canchaId;
+        document.getElementById('hora').value = hora;
+        document.getElementById('fecha').value = fechaActual.toISOString().split('T')[0];
+
+        formPago.classList.remove('d-none');
+        formPago.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.getElementById('formularioPago').addEventListener('submit', function (event) {
+        event.preventDefault();
+        procesarPago();
+    });
+
+    function procesarPago() {
+        const formData = new FormData(document.getElementById('formularioPago'));
+
+        fetch('/reserva/procesar_reserva', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    document.getElementById('formPago').classList.add('d-none');
+                    actualizarEstadoCeldas();
+                } else {
+                    alert('Error al procesar el pago');
+                }
+            })
+            .catch(error => {
+                console.error('Error al procesar la reserva:', error);
+                alert('Error al procesar la reserva');
+            });
+    }
+
+    actualizarFechaVisual();
+    actualizarEstadoCeldas();
+</script>
+
+{% include 'footer.html' %}

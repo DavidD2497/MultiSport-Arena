@@ -1,4 +1,3 @@
-import sqlite3
 from sqlite3 import Error
 
 def crear_tabla_reserva(conn):
@@ -11,7 +10,6 @@ def crear_tabla_reserva(conn):
             id_cancha INTEGER NOT NULL,
             fecha TEXT NOT NULL,
             hora INTEGER NOT NULL,
-            estado TEXT NOT NULL DEFAULT 'Por Confirmar',  -- 'Por Confirmar' o 'Confirmada'
             FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario),
             FOREIGN KEY (id_cancha) REFERENCES Canchas (id_cancha)
         );
@@ -21,15 +19,14 @@ def crear_tabla_reserva(conn):
     except Error as e:
         print(f"Error al crear la tabla: {e}")
 
-
-def insertar_reserva(conn, id_usuario, id_cancha, fecha, hora, estado='Por Confirmar'):
+def insertar_reserva(conn, id_usuario, id_cancha, fecha, hora):
     try:
         cursor = conn.cursor()
         sql_insertar_reserva = """
-        INSERT INTO Reservas (id_usuario, id_cancha, fecha, hora, estado)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO Reservas (id_usuario, id_cancha, fecha, hora)
+        VALUES (?, ?, ?, ?)
         """
-        cursor.execute(sql_insertar_reserva, (id_usuario, id_cancha, fecha, hora, estado))
+        cursor.execute(sql_insertar_reserva, (id_usuario, id_cancha, fecha, hora))
         conn.commit()
         print("Reserva insertada exitosamente.")
     except Error as e:
@@ -38,7 +35,7 @@ def insertar_reserva(conn, id_usuario, id_cancha, fecha, hora, estado='Por Confi
 def obtener_todas_las_reservas(conn):
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT r.id_reserva, u.nombre AS usuario, c.nombre AS cancha, r.fecha, r.hora, r.estado
+        SELECT r.id_reserva, u.nombre AS usuario, c.nombre AS cancha, r.fecha, r.hora
         FROM Reservas r
         JOIN Usuarios u ON r.id_usuario = u.id_usuario
         JOIN Canchas c ON r.id_cancha = c.id_cancha
@@ -52,27 +49,29 @@ def obtener_reserva_por_id(conn, id_reserva):
     """, (id_reserva,))
     return cursor.fetchone()
 
-def actualizar_estado_reserva(conn, id_reserva, nuevo_estado):
-    cursor = conn.cursor()
-    cursor.execute("""
-        UPDATE Reservas SET estado = ? WHERE id_reserva = ?
-    """, (nuevo_estado, id_reserva))
-    conn.commit()
-
 def eliminar_reserva(conn, id_reserva):
     cursor = conn.cursor()
     cursor.execute("DELETE FROM Reservas WHERE id_reserva = ?", (id_reserva,))
     conn.commit()
 
-def obtener_reservas(conn):
+def obtener_reservas(conn, fecha):
     query = """
-        SELECT reservas.id_reserva, canchas.nombre AS cancha_nombre, reservas.fecha, 
-               reservas.hora, reservas.estado
-        FROM reservas
-        JOIN canchas ON reservas.id_cancha = canchas.id_cancha
+        SELECT id_cancha, hora
+        FROM Reservas
+        WHERE fecha = ?
     """
     cursor = conn.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (fecha,))
     reservas = cursor.fetchall()
     print("Reservas obtenidas:", reservas)
     return reservas
+
+def obtener_reservas_por_usuario(conn, id_usuario):
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT r.id_reserva, c.nombre AS cancha, r.fecha, r.hora
+        FROM Reservas r
+        JOIN Canchas c ON r.id_cancha = c.id_cancha
+        WHERE r.id_usuario = ?
+    """, (id_usuario,))
+    return cursor.fetchall()

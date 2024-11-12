@@ -1,13 +1,16 @@
 {% include 'header.html' %}
 
+{% include 'admin_alerta.html' %}
+
 <main class="d-flex justify-content-center align-items-center vh-100">
     <div class="text-center">
-        <a href="{{ url_for('admin_usuarios') }}" class="btn btn-success btn-lg mb-3 d-block fw-bold">Panel ABM Usuarios</a>
-        <a href="{{ url_for('admin_canchas') }}" class="btn btn-success btn-lg mb-3 d-block fw-bold">Panel ABM Canchas</a>
-        <a href="{{ url_for('admin_reservas') }}" class="btn btn-success btn-lg mb-3 d-block fw-bold">Panel ABM Reservas</a>
+        <a href="{{ url_for('admin_usuarios') }}" class="btn btn-success btn-lg mb-3 d-block fw-bold">Panel ABM
+            Usuarios</a>
+        <a href="{{ url_for('admin_canchas') }}" class="btn btn-success btn-lg mb-3 d-block fw-bold">Panel ABM
+            Canchas</a>
+        <a href="{{ url_for('admin_reservas') }}" class="btn btn-success btn-lg mb-3 d-block fw-bold">Panel ABM
+            Reservas</a>
     </div>
 </main>
 
 {% include 'footer.html' %}
-
-

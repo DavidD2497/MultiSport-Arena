@@ -1,4 +1,3 @@
-import sqlite3
 from sqlite3 import Error
 
 def crear_tabla_cancha(conn):
