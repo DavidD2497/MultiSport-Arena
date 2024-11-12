@@ -63,20 +63,31 @@
             <input type="hidden" id="hora" name="hora">
             <input type="hidden" id="fecha" name="fecha">
 
-            <div class="col-md-12">
+            <div class="col-md-12 position-relative">
                 <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
-                <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX XXXX XXXX XXXX" required>
+                <div class="input-icon">
+                    <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX XXXX XXXX XXXX"
+                        required inputmode="numeric" maxlength="19" oninput="soloNumeros(this)">
+                    <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Tarjeta Visa"
+                        class="icono-tarjeta">
+                </div>
             </div>
+
             <div class="col-md-6">
                 <label for="fechaVencimiento" class="form-label">Fecha de Vencimiento</label>
-                <input type="text" class="form-control" id="fechaVencimiento" placeholder="MM/YY" required>
+                <input type="text" class="form-control" id="fechaVencimiento" placeholder="MM/YY" maxlength="5"
+                    pattern="\d{2}/\d{2}" required>
             </div>
+
             <div class="col-md-6">
                 <label for="codigoSeguridad" class="form-label">Código de Seguridad</label>
-                <input type="text" class="form-control" id="codigoSeguridad" required>
+                <input type="tel" class="form-control" id="codigoSeguridad" placeholder="CVC" maxlength="3"
+                    pattern="\d{3}" required>
             </div>
+
             <div class="col-12">
-                <button type="submit" class="btn btn-primary w-100">Hacer Pago</button>
+                <button type="submit" class="btn btn-primary w-100 shadow-sm"
+                    style="background-color: #007bff; border: none;">Hacer Pago</button>
             </div>
         </form>
     </div>
@@ -167,6 +178,106 @@
     });
 
     function procesarPago() {
+        const formData = new FormData(document.getElementById('formularioPago'));
+
+        fetch('/reserva/procesar_reserva', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    document.getElementById('formPago').classList.add('d-none');
+                    actualizarEstadoCeldas();
+                } else {
+                    alert('Error al procesar el pago');
+                }
+            })
+            .catch(error => {
+                console.error('Error al procesar la reserva:', error);
+                alert('Error al procesar la reserva');
+            });
+    }
+    function soloNumeros(input) {
+        input.value = input.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
+    }
+    function validarTarjeta(numero) {
+        const regex = /^\d{16}$/;
+        if (!regex.test(numero)) {
+            return false;
+        }
+        let sum = 0;
+        let shouldDouble = false;
+        for (let i = numero.length - 1; i >= 0; i--) {
+            let digit = parseInt(numero[i]);
+            if (shouldDouble) {
+                digit *= 2;
+                if (digit > 9) digit -= 9;
+            }
+            sum += digit;
+            shouldDouble = !shouldDouble;
+        }
+        return sum % 10 === 0;
+    }
+    document.getElementById('fechaVencimiento').addEventListener('input', function (event) {
+        let value = event.target.value;
+
+        value = value.replace(/\D/g, '');
+        if (value.length > 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2, 4);
+        }
+        if (value.length > 5) {
+            value = value.slice(0, 5);
+        }
+        event.target.value = value;
+    });
+    document.getElementById('codigoSeguridad').addEventListener('input', function (event) {
+        let value = event.target.value;
+
+        value = value.replace(/\D/g, '');
+
+        if (value.length > 3) {
+            value = value.slice(0, 3);
+        }
+
+        event.target.value = value;
+    });
+    function validarFechaVencimiento(fecha) {
+        const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        if (!regex.test(fecha)) {
+            return false;
+        }
+        const [mes, anio] = fecha.split('/').map(Number);
+        const fechaActual = new Date();
+        const anioActual = fechaActual.getFullYear() % 100;
+        const mesActual = fechaActual.getMonth() + 1;
+
+        return anio > anioActual || (anio === anioActual && mes >= mesActual);
+    }
+
+    function validarCodigoSeguridad(codigo) {
+        return /^\d{3,4}$/.test(codigo);
+    }
+
+    function procesarPago() {
+        const numeroTarjeta = document.getElementById('numeroTarjeta').value.replace(/\s/g, '');
+        const fechaVencimiento = document.getElementById('fechaVencimiento').value;
+        const codigoSeguridad = document.getElementById('codigoSeguridad').value;
+
+        if (!validarTarjeta(numeroTarjeta)) {
+            alert('Número de tarjeta inválido');
+            return;
+        }
+        if (!validarFechaVencimiento(fechaVencimiento)) {
+            alert('Fecha de vencimiento inválida');
+            return;
+        }
+        if (!validarCodigoSeguridad(codigoSeguridad)) {
+            alert('Código de seguridad inválido');
+            return;
+        }
+
         const formData = new FormData(document.getElementById('formularioPago'));
 
         fetch('/reserva/procesar_reserva', {

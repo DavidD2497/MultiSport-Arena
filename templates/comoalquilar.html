@@ -3,11 +3,11 @@
 <body>
     <main class="container my-5">
         <div class="row">
-            <!-- Columna izquierda: Acordeón de preguntas (más a la izquierda) -->
-            <div class="col-md-6" style="margin-left: -30px;"> <!-- Ajuste del margen izquierdo para mover el acordeón más a la izquierda -->
+            
+            <div class="col-md-6" style="margin-left: -30px;"> 
                 <h3 class="texto-alq1">Preguntas Frecuentes</h3>
                 <div class="accordion" id="accordionPreguntas">
-                    <!-- Pregunta 1 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 2 -->
+                   
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 3 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 4 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingFour">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 5 -->
+                   
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingFive">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 6 -->
+                   
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingSix">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 7 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingSeven">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 8 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingEight">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 9 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingNine">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 10 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTen">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 11 -->
+                   
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingEleven">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pregunta 12 -->
+                    
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwelve">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
@@ -166,23 +166,32 @@
                 </div>
             </div>
 
-            <!-- Columna derecha: Imágenes con títulos (más grandes) -->
-            <!-- Columna derecha: Imágenes con títulos (más grandes) -->
-<div class="col-md-6">
-    <h3 class="texto-alq1"> Cómo Alquilar</h3>
-    <div class="row">
-        <!-- Imagen 1 -->
-        <div class="col-md-12 mb-4"> <!-- Haciendo que ocupe toda la columna para mayor ancho -->
-            <img src="{{ url_for('static', filename='img/imagen1.jpg') }}" class="d-block w-100" alt="Imagen Cancha de Futbol" style="height: 400px; object-fit: cover;">
-            <h5 class="text-center mt-2">Reserva</h5>
-        </div>
-        <!-- Imagen 2 -->
-        <div class="col-md-12 mb-4"> <!-- Haciendo que ocupe toda la columna para mayor ancho -->
-            <img src="{{ url_for('static', filename='img/imagen2.jpg') }}" class="d-block w-100" alt="Imagen Cancha de Tenis" style="height: 400px; object-fit: cover;">
-            <h5 class="text-center mt-2">Pago</h5>
-        </div>
-    </div>
-</div>
+
+           
+            
+            <div class="col-md-6">
+                <h3 class="texto-alq1">Cómo Alquilar</h3>
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <img src="{{ url_for('static', filename='img/reserva.jpg') }}" class="d-block w-100" alt="Imagen Cancha de Futbol" style="height: 400px; object-fit: cover;">
+                        <h5 class="text-center mt-2">Reserva</h5>
+                        <p class="text-center texto-reserva">
+                            En esta sección vas a definir el horario de tu reserva. En color <span class="texto-verde">verde</span> están los horarios disponibles, en color <span class="texto-gris">gris</span> los horarios ya pasados, y en <span class="texto-rojo">rojo</span> cuando la cancha ya está ocupada.
+                        </p>
+                        
+                    </div>
+                    
+                    <div class="col-md-12 mb-4">
+                        <img src="{{ url_for('static', filename='img/pago.jpg') }}" class="d-block w-100" alt="Imagen de Pago" style="height: 400px; object-fit: contain;">
+                        <p class="text-center texto-info">
+                            En esta sección debes ingresar los datos de tu tarjeta para realizar el respectivo pago. Sin el pago, no se hará la reserva de la cancha.
+                        </p>
+                        
+                        <h5 class="text-center mt-2">Pago</h5>
+                    </div>
+                </div>
+            </div>
+            
 
     </main>
 

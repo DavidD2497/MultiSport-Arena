@@ -21,8 +21,8 @@
         <div class="col-md-12">
             <p class="footer-text m-0">© 2024 MultiSport - Todos los derechos reservados</p>
             <p class="m-0">
-                <a href="#" class="text-light">Términos y Condiciones</a> | 
-                <a href="#" class="text-light">Política de Privacidad</a>
+                <a href="{{ url_for('static', filename='pdf/terminos.pdf') }}"  target="_blank"   class="text-light">Términos y Condiciones</a> | 
+                <a href="{{ url_for('static', filename='pdf/terminos.pdf') }}"  target="_blank" class="text-light">Política de Privacidad</a>
             </p>
         </div>
     </div>
