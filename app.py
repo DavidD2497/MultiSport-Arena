@@ -1,7 +1,7 @@
 from flask import Flask, flash, jsonify, session, render_template, redirect, url_for, request
 from modelo.conexion import crear_conexion
 from modelo.usuario import crear_tabla_usuario, insertar_usuario, obtener_todos_los_usuarios, actualizar_nivel
-from modelo.cancha import crear_tabla_cancha, insertar_cancha, obtener_canchas, obtener_todas_las_canchas, actualizar_cancha, eliminar_cancha, obtener_cancha_por_id
+from modelo.cancha import crear_tabla_cancha, insertar_cancha, obtener_canchas, obtener_todas_las_canchas, actualizar_cancha, eliminar_cancha, obtener_cancha_por_id, obtener_precio_cancha
 from modelo.reserva import crear_tabla_reserva, insertar_reserva, obtener_reservas, obtener_todas_las_reservas, eliminar_reserva, obtener_reservas_por_usuario
 from controlador.autenticador import auth_bp
 from datetime import datetime
@@ -82,7 +82,8 @@ def agregar_cancha():
     conn = crear_conexion("reserva_canchas.db")
     nombre = request.form['nombre']
     tipo = request.form['tipo']
-    insertar_cancha(conn, tipo, nombre)
+    precio = request.form['precio']
+    insertar_cancha(conn, tipo, nombre, precio)
     conn.close()
     return redirect(url_for('admin_canchas'))
 
@@ -104,7 +105,8 @@ def actualizar_cancha_route(id):
     conn = crear_conexion("reserva_canchas.db")
     nombre = request.form['nombre']
     tipo = request.form['tipo']
-    actualizar_cancha(conn, id, tipo, nombre)
+    precio = request.form['precio']
+    actualizar_cancha(conn, id, tipo, nombre, precio)
     conn.close()
     return redirect(url_for('admin_canchas'))
 
@@ -157,6 +159,13 @@ def obtener_horarios():
     conn.close()
     return jsonify([{'id_cancha': r[0], 'hora': r[1]} for r in reservas])
 
+@app.route('/reserva/obtener_precio_cancha/<int:id_cancha>')
+def obtener_precio_cancha_route(id_cancha):
+    conn = crear_conexion("reserva_canchas.db")
+    precio = obtener_precio_cancha(conn, id_cancha)
+    conn.close()
+    return jsonify({'precio': precio})
+
 @app.route('/reserva/procesar_reserva', methods=['POST'])
 def procesar_reserva():
     id_usuario = session.get('user_id')
@@ -191,5 +200,15 @@ if __name__ == "__main__":
         crear_tabla_reserva(conn)
         insertar_usuario(conn, "Cliente", "juan@example.com", "contrasena123", "cliente")
         insertar_usuario(conn, "Admin", "admin@example.com", "admin123", "administrador")
+        insertar_cancha(conn, "padel", "Cancha Padel 1", 30000)
+        insertar_cancha(conn, "padel", "Cancha Padel 2", 30000)
+        insertar_cancha(conn, "padel", "Cancha Padel 3", 30000)
+        insertar_cancha(conn, "tenis", "Cancha Tenis 1", 20000)
+        insertar_cancha(conn, "tenis", "Cancha Tenis 2", 20000)
+        insertar_cancha(conn, "tenis", "Cancha Tenis 3", 20000)
+        insertar_cancha(conn, "futbol", "Cancha 5v5", 30000)
+        insertar_cancha(conn, "futbol", "Cancha 6v6", 35000)
+        insertar_cancha(conn, "futbol", "Cancha 7v7", 40000)
+
         conn.close()
     app.run(debug=True)

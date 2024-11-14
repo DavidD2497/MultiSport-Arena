@@ -63,6 +63,14 @@
             <input type="hidden" id="hora" name="hora">
             <input type="hidden" id="fecha" name="fecha">
 
+            <div class="col-md-12 mb-3">
+                <label for="precioCancha" class="form-label">Precio de la Cancha</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" id="precioCancha" readonly>
+                </div>
+            </div>
+
             <div class="col-md-12 position-relative">
                 <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
                 <div class="input-icon">
@@ -170,6 +178,15 @@
         document.getElementById('hora').value = hora;
         document.getElementById('fecha').value = fechaActual.toISOString().split('T')[0];
 
+        fetch(`/reserva/obtener_precio_cancha/${canchaId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('precioCancha').value = data.precio;
+            })
+            .catch(error => {
+                console.error('Error al obtener el precio de la cancha:', error);
+            });
+
         formPago.classList.remove('d-none');
         formPago.scrollIntoView({ behavior: 'smooth' });
     }
@@ -224,25 +241,22 @@
     }
     document.getElementById('numeroTarjeta').addEventListener('input', function(event) {
     const tarjetaInput = event.target.value;
-    const visaRegex = /^4/; // Visa comienza con 4
-    const mastercardRegex = /^5[1-5]/; // MasterCard comienza con 51 a 55
+    const visaRegex = /^4/;
+    const mastercardRegex = /^5[1-5]/;
 
-    // Ocultar ambos logos inicialmente
     document.getElementById('visaLogo').style.display = 'none';
     document.getElementById('mastercardLogo').style.display = 'none';
 
-    // Si el campo de número de tarjeta está vacío, no hacer nada más
     if (!tarjetaInput) {
-        return; // Si está vacío, no mostramos nada
+        return;
     }
 
-    // Verificar si es Visa
     if (visaRegex.test(tarjetaInput)) {
-        document.getElementById('visaLogo').style.display = 'inline'; // Mostrar el logo de Visa
+        document.getElementById('visaLogo').style.display = 'inline'; 
     }
-    // Verificar si es MasterCard
+
     else if (mastercardRegex.test(tarjetaInput)) {
-        document.getElementById('mastercardLogo').style.display = 'inline'; // Mostrar el logo de MasterCard
+        document.getElementById('mastercardLogo').style.display = 'inline'; 
     }
 });
     document.getElementById('fechaVencimiento').addEventListener('input', function (event) {
