@@ -22,6 +22,10 @@
                     <option value="futbol" {% if cancha[1] == 'futbol' %}selected{% endif %}>Futbol</option>
                 </select>
             </div>
+            <div>
+                <label for="precioCancha" class="form-label">Precio:</label>
+                <input id="precioCancha" name="precio" type="number" step="0.01" class="form-control" value="{{ cancha[3] }}" required />
+            </div>
         </fieldset>
         <div class="d-flex justify-content-center m-3">
             <input type="submit" class="btn btnFormulario btn-primary" value="Actualizar cancha">
@@ -30,4 +34,5 @@
 </main>
 
 {% include 'footer.html' %}
+
 

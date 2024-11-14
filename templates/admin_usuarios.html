@@ -20,9 +20,9 @@
         <tbody>
             {% for usuario in usuarios %}
             <tr>
-                <td>{{ usuario[1] }}</td> 
-                <td>{{ usuario[2] }}</td> 
-                <td>{{ usuario[4] }}</td> 
+                <td>{{ usuario[1] }}</td>
+                <td>{{ usuario[2] }}</td>
+                <td>{{ usuario[4] }}</td>
                 <td>
                     {% if usuario[4] == 'administrador' %}
                         <a href="{{ url_for('hacer_cliente', id=usuario[0]) }}">Hacer Cliente</a>
